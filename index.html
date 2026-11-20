@@ -1,576 +1,1125 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poona | Design Research for Children & Teens</title>
-    
-    <!-- فونت انگلیسی: Comic Neue -->
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* تعریف فونت فارسی دقیقاً با اسم فایل‌های موجود در گیت‌هاب شما */
-        @font-face {
-            font-family: 'MyMorvarid';
-            src: url('BMorvarid.ttf') format('truetype'),
-                 url('B Morvarid_www.Downloadha.com.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap; 
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poona | Reyhaneh Sanei</title>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+    font-family: 'BMorvarid';
+    src: url('BMorvarid.ttf') format('truetype'),
+         url('B%20Morvarid_www.Downloadha.com.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
-        :root {
-            --pink: #E91E63;
-            --yellow: #FDD763;
-            --teal: #4A7A82;
-            --bg-main: rgb(86, 6, 93);
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --card-hover: rgba(255, 255, 255, 0.15);
-            --white: #ffffff;
-        }
+:root {
+    --pink: #E91E63;
+    --yellow: #FDD763;
+    --teal: #4A7A82;
+    --bg-main: rgb(86, 6, 93);
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-hover: rgba(255, 255, 255, 0.15);
+    --white: #ffffff;
+    --header-h: 130px;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-        /* ---------------------------------------------------
-           جداسازی کامل فونت‌ها بر اساس زبان (بدون تداخل)
-           --------------------------------------------------- */
-        
-        /* حالت انگلیسی (LTR): همه چیز Comic Neue */
-        html[dir="ltr"] * {
-            font-family: 'Comic Neue', cursive, sans-serif !important;
-        }
+/* فونت‌ها - همان روش کد اصلی که کار می‌کرد */
+html[dir="ltr"] * {
+    font-family: 'Comic Neue', cursive, sans-serif !important;
+}
+html[dir="rtl"] * {
+    font-family: 'BMorvarid', sans-serif !important;
+}
 
-        /* حالت فارسی (RTL): همه چیز مروارید */
-        html[dir="rtl"] * {
-            font-family: 'MyMorvarid', 'Vazirmatn', sans-serif !important;
-        }
+body {
+    background-color: var(--bg-main);
+    color: var(--white);
+    overflow-x: hidden;
+    transition: all 0.3s ease;
+}
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--white);
-            overflow-x: hidden;
-            transition: all 0.3s ease;
-        }
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(86, 6, 93, 0.96);
+    backdrop-filter: blur(10px);
+    padding: 10px 4%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-        /* هدر */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(86, 6, 93, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-container img { 
-            height: 55px; 
-            width: 55px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--yellow);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        
-        .logo-text {
-            color: var(--yellow);
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-        
-        .header-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
+.logo-container { display: flex; align-items: center; gap: 12px; }
 
-        .btn {
-            background: transparent;
-            color: white;
-            border: 2px solid var(--pink);
-            padding: 8px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        
-        .btn:hover { 
-            background: var(--pink); 
-            box-shadow: 0 0 15px var(--pink); 
-        }
-        
-        .btn-solid {
-            background: var(--pink);
-            border: 2px solid var(--pink);
-        }
-        
-        .btn-solid:hover { 
-            background: transparent; 
-        }
+.logo-container img {
+    height: 48px; width: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--yellow);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
 
-        /* بخش‌ها (Sections) */
-        section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 100px 5%;
-            gap: 40px;
-            position: relative;
-        }
+.logo-text {
+    color: var(--yellow);
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
 
-        .text-content { flex: 1.2; z-index: 2; }
-        .image-content { flex: 1; display: flex; justify-content: center; align-items: center; }
-        
-        .image-content img {
-            width: 100%;
-            max-width: 550px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transition: transform 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .image-content img:hover { transform: scale(1.02); }
+.lang-tabs {
+    display: flex;
+    gap: 5px;
+    background: rgba(0,0,0,0.3);
+    padding: 5px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.15);
+}
 
-        /* متون */
-        h1 { font-size: 3.5rem; color: var(--yellow); margin-bottom: 20px; line-height: 1.2; }
-        h2 { font-size: 2.5rem; color: var(--pink); margin-bottom: 30px; }
-        p { font-size: 1.2rem; line-height: 1.8; margin-bottom: 15px; color: #f0f0f0; }
-        
-        .highlight {
-            background: rgba(233, 30, 99, 0.2);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            font-weight: bold;
-            color: var(--white);
-            font-size: 1.2rem;
-        }
-        html[dir="rtl"] .highlight { border-right: 5px solid var(--pink); }
-        html[dir="ltr"] .highlight { border-left: 5px solid var(--pink); }
+.lang-tab {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+.lang-tab:hover { background: rgba(255,255,255,0.1); }
+.lang-tab.active {
+    background: var(--pink);
+    color: white;
+    box-shadow: 0 0 12px var(--pink);
+}
 
-        /* کارت‌های تعاملی (Hover) */
-        .grid-container { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+.sub-tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-        .clickable-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            overflow: hidden;
-        }
+.sub-tab {
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.sub-tab:hover { color: var(--yellow); border-color: var(--yellow); }
+.sub-tab.active {
+    background: var(--yellow);
+    color: var(--bg-main);
+    border-color: var(--yellow);
+    font-weight: bold;
+}
 
-        .clickable-card:hover {
-            background: var(--card-hover);
-            border-color: var(--pink);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+.lang-pane { display: none; }
+.lang-pane.active { display: block; }
 
-        .card-header { display: flex; justify-content: space-between; align-items: center; }
-        .clickable-card h3 { font-size: 1.3rem; color: var(--white); margin: 0; transition: color 0.3s; }
-        .clickable-card:hover h3 { color: var(--yellow); }
-        
-        .icon { color: var(--pink); font-size: 1.5rem; font-weight: bold; transition: transform 0.4s ease; }
-        .clickable-card:hover .icon { transform: rotate(45deg); }
+.sub-pane { display: none; }
+.sub-pane.active { display: block; }
 
-        .card-content { max-height: 0; opacity: 0; transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease; }
-        .clickable-card:hover .card-content { max-height: 250px; opacity: 1; margin-top: 15px; }
-        .card-content p { font-size: 1.1rem; line-height: 1.7; color: #ddd; margin: 0; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); }
+section {
+    padding: calc(var(--header-h) + 30px) 5% 60px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+}
 
-        /* فرآیند همکاری */
-        .process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+.text-content { flex: 1.2; z-index: 2; min-width: 0; }
+.image-content { flex: 1; display: flex; justify-content: center; align-items: center; }
 
-        .process-step {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            overflow: hidden;
-            border-bottom: 4px solid var(--teal);
-        }
-        
-        .process-step:hover { 
-            background: var(--card-hover); 
-            border-bottom-color: var(--pink); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
-        }
+.image-content img {
+    width: 100%;
+    max-width: 550px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transition: transform 0.3s;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.image-content img:hover { transform: scale(1.02); }
 
-        .step-header { display: flex; align-items: center; gap: 15px; }
-        .process-step .num { font-size: 2.2rem; font-weight: bold; color: var(--pink); line-height: 1; }
-        .process-step strong { display: block; font-size: 1.2rem; color: var(--white); margin-bottom: 5px; }
-        .process-step .en-title { font-size: 0.9rem; color: var(--teal); letter-spacing: 1px; font-weight: bold; }
+h1 { font-size: clamp(1.9rem, 4vw, 3.2rem); color: var(--yellow); margin-bottom: 20px; line-height: 1.3; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); color: var(--pink); margin-bottom: 25px; line-height: 1.3; }
+p { font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.8; margin-bottom: 15px; color: #f0f0f0; }
 
-        .process-content { max-height: 0; opacity: 0; transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease; }
-        .process-step:hover .process-content { max-height: 150px; opacity: 1; margin-top: 15px; }
-        .process-content p { font-size: 1.05rem; color: #ddd; margin: 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
+.highlight {
+    background: rgba(233, 30, 99, 0.2);
+    padding: 18px;
+    border-radius: 15px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: var(--white);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+}
+html[dir="rtl"] .highlight { border-right: 5px solid var(--pink); }
+html[dir="ltr"] .highlight { border-left: 5px solid var(--pink); }
 
-        /* فوتر و تماس */
-        #contact { 
-            background-color: rgba(0,0,0,0.2); 
-            padding: 80px 5%; 
-            text-align: center; 
-            display: block; 
-            border-top: 1px solid rgba(255,255,255,0.1); 
-            min-height: auto; 
-        }
-        #contact h2 { color: var(--yellow); }
-        
-        .contact-info-box {
-            background: rgba(255,255,255,0.05);
-            padding: 30px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 30px;
-            text-align: start;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            font-size: 1.2rem;
-        }
-        .contact-info-box p { margin-bottom: 10px; color: #fff; }
-        .contact-info-box span.val { color: var(--pink); font-weight: bold; }
-        
-        .copyright { margin-top: 50px; font-size: 1rem; color: #aaa; }
+.grid-container { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
 
-        /* انیمیشن اسکرول */
-        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+.clickable-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 15px;
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+.clickable-card:hover,
+.clickable-card.is-open {
+    background: var(--card-hover);
+    border-color: var(--pink);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
 
-        /* ریسپانسیو */
-        @media (max-width: 900px) {
-            section { flex-direction: column; text-align: center; padding-top: 120px; }
-            .image-content { order: -1; margin-bottom: 30px; }
-            h1 { font-size: 2.5rem; }
-            .process-grid { grid-template-columns: 1fr; }
-            .logo-container { flex-direction: column; gap: 5px; }
-            .logo-text { font-size: 1.2rem; }
-            header { padding: 10px; }
-            html[dir="rtl"] .clickable-card { text-align: right; }
-            html[dir="ltr"] .clickable-card { text-align: left; }
-            .contact-info-box { font-size: 1rem; }
-        }
-    </style>
+.card-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.clickable-card h3 {
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--white);
+    margin: 0;
+    transition: color 0.3s;
+    line-height: 1.4;
+}
+.clickable-card:hover h3,
+.clickable-card.is-open h3 { color: var(--yellow); }
+
+.icon { color: var(--pink); font-size: 1.4rem; font-weight: bold; transition: transform 0.4s ease; }
+.clickable-card:hover .icon,
+.clickable-card.is-open .icon { transform: rotate(45deg); }
+
+.card-content {
+    max-height: 0; opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
+}
+.clickable-card:hover .card-content,
+.clickable-card.is-open .card-content {
+    max-height: 300px; opacity: 1; margin-top: 12px;
+}
+.card-content p {
+    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+    color: #ddd;
+    margin: 0;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+
+.process-step {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 15px;
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    border-bottom: 4px solid var(--teal);
+}
+.process-step:hover,
+.process-step.is-open {
+    background: var(--card-hover);
+    border-bottom-color: var(--pink);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.step-header { display: flex; align-items: center; gap: 12px; }
+.process-step .num { font-size: clamp(1.7rem, 2.5vw, 2.2rem); font-weight: bold; color: var(--pink); line-height: 1; }
+.process-step strong { display: block; font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--white); margin-bottom: 4px; }
+.process-step .en-title { font-size: 0.85rem; color: var(--teal); letter-spacing: 1px; font-weight: bold; display: block; }
+
+.process-content {
+    max-height: 0; opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
+}
+.process-step:hover .process-content,
+.process-step.is-open .process-content {
+    max-height: 200px; opacity: 1; margin-top: 12px;
+}
+.process-content p {
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+    color: #ddd;
+    margin: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 10px;
+}
+
+.contact-info-box {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 25px;
+    text-align: start;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    max-width: 100%;
+    word-break: break-word;
+}
+.contact-info-box p { margin-bottom: 10px; color: #fff; }
+.contact-info-box a {
+    color: var(--pink);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.25s ease;
+    overflow-wrap: anywhere;
+}
+.contact-info-box a:hover { color: var(--yellow); text-decoration: underline; }
+
+.copyright { margin-top: 40px; font-size: 0.9rem; color: #aaa; direction: ltr; }
+
+.about-header { text-align: center; margin-bottom: 40px; padding-top: 20px; }
+
+.about-name {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--yellow);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+.about-title {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--pink);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.about-subtitle {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: var(--teal);
+    font-weight: bold;
+}
+
+.about-bio {
+    max-width: 900px;
+    margin: 0 auto 50px;
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: start;
+    line-height: 1.9;
+    font-size: clamp(1rem, 1.4vw, 1.1rem);
+    color: #eee;
+}
+
+.experience-section {
+    margin-bottom: 50px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+    max-width: 1000px;
+    margin-inline: auto;
+}
+
+.experience-title {
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    color: var(--yellow);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+.experience-org {
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    color: var(--teal);
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+.experience-role {
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+    color: var(--pink);
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.experience-list { list-style: none; padding: 0; margin-bottom: 20px; }
+.experience-list li {
+    position: relative;
+    padding-inline-start: 22px;
+    margin-bottom: 10px;
+    line-height: 1.75;
+    color: #e0e0e0;
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+}
+.experience-list li::before {
+    content: "▸";
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--pink);
+    font-weight: bold;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0 12px;
+}
+
+.photo-slot {
+    aspect-ratio: 1 / 1;
+    background: rgba(255,255,255,0.05);
+    border: 2px dashed rgba(255,255,255,0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75rem;
+    text-align: center;
+    overflow: hidden;
+    transition: border-color 0.3s, background 0.3s;
+}
+.photo-slot:hover { border-color: var(--pink); background: rgba(233,30,99,0.08); }
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+
+.link-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.link-box {
+    background: rgba(233, 30, 99, 0.1);
+    border: 1px solid var(--pink);
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.link-box input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 0.8rem;
+    text-align: center;
+    outline: none;
+    padding: 4px;
+}
+.link-box input::placeholder { color: rgba(255,255,255,0.5); }
+.link-box input:focus { background: rgba(255,255,255,0.05); border-radius: 6px; }
+
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1100px) {
+    .photo-grid, .link-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+    :root { --header-h: 160px; }
+    section {
+        flex-direction: column;
+        text-align: center;
+        padding-top: calc(var(--header-h) + 15px);
+        gap: 25px;
+    }
+    .image-content { order: -1; margin-bottom: 10px; width: 100%; }
+    .image-content img { max-width: 100%; }
+    .process-grid { grid-template-columns: 1fr; }
+    .logo-text { font-size: 1.1rem; }
+    .logo-container img { height: 38px; width: 38px; }
+    .lang-tab { padding: 6px 14px; font-size: 0.82rem; }
+    .sub-tab { padding: 4px 10px; font-size: 0.75rem; }
+    html[dir="rtl"] .clickable-card,
+    html[dir="rtl"] .process-step,
+    html[dir="rtl"] .about-bio,
+    html[dir="rtl"] .experience-section { text-align: right; }
+    html[dir="ltr"] .clickable-card,
+    html[dir="ltr"] .process-step,
+    html[dir="ltr"] .about-bio,
+    html[dir="ltr"] .experience-section { text-align: left; }
+}
+
+@media (max-width: 600px) {
+    .logo-text { display: none; }
+    .header-top { gap: 8px; }
+    .lang-tab { padding: 5px 12px; font-size: 0.78rem; }
+    .sub-tab { padding: 3px 8px; font-size: 0.72rem; }
+    .contact-info-box { padding: 18px; }
+}
+</style>
 </head>
 <body>
 
-    <!-- هدر -->
-    <header>
+<header>
+    <div class="header-top">
         <div class="logo-container">
             <img src="logo.jpg" alt="Poona Logo">
             <span class="logo-text">POONA</span>
         </div>
-        <div class="header-actions">
-            <button class="btn" id="langToggle" onclick="toggleLanguage()">فارسی</button>
-            <a href="#contact" class="btn btn-solid" id="nav-btn-contact">Start Collaboration</a>
+        <div class="lang-tabs">
+            <button class="lang-tab active" id="langBtn-en" data-lang="en" type="button">ENGLISH</button>
+            <button class="lang-tab" id="langBtn-fa" data-lang="fa" type="button">فارسی</button>
         </div>
-    </header>
+    </div>
 
-    <!-- بخش 1: معرفی -->
-    <section id="hero" class="fade-in">
-        <div class="text-content">
-            <h1 id="t-hero-title">Design Research for Children & Teens</h1>
-            <p id="t-hero-p1">You design for children; but how well do you know the world they imagine?</p>
-            <div class="highlight" id="t-hero-highlight">
-                Transforming children's perspectives, creativity, and imagination into opportunities for designing better products and experiences.
+    <div class="sub-tabs" id="subTabs-en">
+        <button class="sub-tab active" data-sub="en-about" type="button">About Me</button>
+        <button class="sub-tab" data-sub="en-services" type="button">Services</button>
+        <button class="sub-tab" data-sub="en-approach" type="button">My Approach</button>
+        <button class="sub-tab" data-sub="en-domains" type="button">Domains</button>
+        <button class="sub-tab" data-sub="en-process" type="button">Process</button>
+        <button class="sub-tab" data-sub="en-contact" type="button">Contact</button>
+    </div>
+
+    <div class="sub-tabs" id="subTabs-fa" style="display:none;">
+        <button class="sub-tab active" data-sub="fa-about" type="button">درباره من</button>
+        <button class="sub-tab" data-sub="fa-services" type="button">خدمات</button>
+        <button class="sub-tab" data-sub="fa-approach" type="button">رویکرد من</button>
+        <button class="sub-tab" data-sub="fa-domains" type="button">حوزه‌ها</button>
+        <button class="sub-tab" data-sub="fa-process" type="button">فرآیند</button>
+        <button class="sub-tab" data-sub="fa-contact" type="button">تماس</button>
+    </div>
+</header>
+
+<!-- ==================== پنل ENGLISH ==================== -->
+<div class="lang-pane active" id="pane-en" dir="ltr">
+
+    <!-- About Me -->
+    <div class="sub-pane active" id="pane-en-about">
+        <section style="display:block; min-height:auto;">
+            <div class="about-header">
+                <div class="about-name">Reyhaneh Sanei</div>
+                <div class="about-title">MA. Industrial Design</div>
+                <div class="about-subtitle">Design Researcher &amp; Design Thinking Educator</div>
             </div>
-        </div>
-        <div class="image-content">
-            <img src="slide1.jpg" alt="Design Research">
-        </div>
-    </section>
 
-    <!-- بخش 2: خدمات پژوهشی -->
-    <section id="services" class="fade-in">
-        <div class="text-content">
-            <h2 id="t-srv-title">Research Services</h2>
-            <p id="t-srv-p1">How can I help your team? (Hover over each item for details)</p>
-            
-            <div class="grid-container">
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-srv1-h">1. Young Audience Exploration</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-srv1-p">Better understanding of how children and teens think, feel, behave, and interact with products and experiences.</p></div>
-                </div>
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-srv2-h">2. Participatory Research Workshops</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-srv2-p">Designing and executing age-appropriate activities for active participation through storytelling, drawing, and creative challenges.</p></div>
-                </div>
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-srv3-h">3. Needs & Opportunity Discovery</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-srv3-p">Exploring overlooked needs, motivations, emerging interests, and potential opportunities for new products and services.</p></div>
-                </div>
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-srv4-h">4. Future-Oriented Research</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-srv4-p">Using speculative scenarios and sci-fi inspired activities to discover children's visions of future lifestyles and products.</p></div>
-                </div>
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-srv5-h">5. Design Insights & Recommendations</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-srv5-p">Translating research observations into actionable insights, design directions, and recommendations for product development.</p></div>
-                </div>
+            <div class="about-bio">
+                <p>Product-minded Design Thinking Educator and Industrial Designer with 15+ years of experience in mentoring, project-based learning, and user-centered problem solving. Currently an IB MYP Design Teacher (Design Thinking subject) at an international, English-language school, where I guide students through structured, project-based processes from problem definition and user needs identification to ideation, prototyping, evaluation, and iteration. I also develop Task Sheets, Design Briefs, Assessment Rubrics, and structured feedback frameworks to support independent problem solving and continuous improvement.</p>
+                <p>Currently transitioning into Product Management through hands-on training in Product Management, Agile/Scrum, and AI-enabled product development. Completed the Product Management Bootcamp at DigiNext Academy, including hands-on work in product discovery, prioritization, and roadmap development.</p>
             </div>
-            <p id="t-srv-footer" style="margin-top: 20px; font-size: 1.1rem; color: var(--yellow); font-weight: bold;">
-                The goal is not just collecting answers; but discovering new questions and opportunities for design.
-            </p>
-        </div>
-        <div class="image-content"><img src="slide2.jpg" alt="Services"></div>
-    </section>
 
-    <!-- بخش 3: رویکرد من -->
-    <section id="approach" class="fade-in">
-        <div class="text-content">
-            <h2 id="t-app-title">My Approach</h2>
-            <p id="t-app-p1">Beyond asking questions; creating opportunities for discovery. Children and teens do not always express their needs the way adults expect.</p>
-            <p id="t-app-p2">A questionnaire might tell us what they prefer today; but what do we know about things they haven't experienced yet?</p>
-            <div class="highlight" style="background: rgba(74, 122, 130, 0.2); border-color: var(--teal);" id="t-app-highlight">
-                My approach combines design thinking and creative participatory activities, allowing children to express their views through storytelling, drawing, creative challenges, and prototyping.
-            </div>
-        </div>
-        <div class="image-content"><img src="slide4.jpg" alt="Approach"></div>
-    </section>
-
-    <!-- بخش 4: حوزه‌های همکاری -->
-    <section id="domains" class="fade-in">
-        <div class="text-content">
-            <h2 id="t-dom-title">Collaboration Domains</h2>
-            <p id="t-dom-p1">For teams designing for the next generation:</p>
-            <div class="grid-container">
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-dom1-h">Toys & Games</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-dom1-p">Understanding play patterns, interests, and discovering new possibilities for play experiences.</p></div>
+            <div class="experience-section">
+                <div class="experience-title">IB Design Teacher (MYP) — Product &amp; Innovation Track</div>
+                <div class="experience-org">International Educational Complex Shahid Mahdavi, Tehran, Iran</div>
+                <div class="experience-role">IB MYP Design Teacher | Shahid Mahdavi International Educational Complex | 2025–Present</div>
+                <ul class="experience-list">
+                    <li>Facilitate project-based Design learning, guiding students through problem definition, user needs, ideation, prototyping, and evaluation.</li>
+                    <li>Develop Task Sheets, Design Briefs, Assessment Rubrics, and Feedback Frameworks to structure expectations, assessment, and iterative improvement.</li>
+                    <li>Provide criteria-based feedback and adapt guidance based on formative assessment to support independent problem solving and continuous improvement.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">Photo 1</div>
+                    <div class="photo-slot">Photo 2</div>
+                    <div class="photo-slot">Photo 3</div>
+                    <div class="photo-slot">Photo 4</div>
                 </div>
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-dom2-h">Publishing & Children's Media</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-dom2-p">Exploring reading experiences, storytelling, characters, and the interests of young audiences.</p></div>
-                </div>
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-dom3-h">EdTech & Digital Products</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-dom3-p">Understanding learning styles, interaction, creation, and participation in digital experiences.</p></div>
-                </div>
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-dom4-h">Product & Experience Design</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-dom4-p">Discovering design opportunities for products, services, spaces, and experiences tailored for children.</p></div>
-                </div>
-                <div class="clickable-card">
-                    <div class="card-header"><h3 id="t-dom5-h">Brands & Innovation Teams</h3><span class="icon">+</span></div>
-                    <div class="card-content"><p id="t-dom5-p">Understanding emerging expectations and future opportunities among younger generations.</p></div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="Link 1 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 2 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 3 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 4 URL"></div>
                 </div>
             </div>
-        </div>
-        <div class="image-content"><img src="slide5.jpg" alt="Domains"></div>
-    </section>
 
-    <!-- بخش 5: فرآیند همکاری -->
-    <section id="process" class="fade-in">
-        <div class="text-content">
-            <h2 id="t-pro-title">Collaboration Process</h2>
-            <p id="t-pro-p1">From problem recognition to discovering opportunities. (Hover over each step for details)</p>
-            
-            <div class="process-grid">
-                <div class="process-step">
-                    <div class="step-header"><span class="num">1</span><div><strong id="t-pro1-h">Discover</strong><span class="en-title">DISCOVER</span></div></div>
-                    <div class="process-content"><p id="t-pro1-p">Understanding the product, audience, business challenges, and research goals.</p></div>
+            <div class="experience-section">
+                <div class="experience-title">Workshop Program Lead — Architectural Fabrication &amp; AI Learning</div>
+                <div class="experience-org">IFabLab Iran – FabKids, Tehran, Iran</div>
+                <ul class="experience-list">
+                    <li>Designed and implemented a modular architectural learning product, taking it from concept development and prototyping to implementation across multiple school environments.</li>
+                    <li>Integrated AI-assisted ideation workflows into student curricula, introducing AI tools to support problem solving and solution development.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">Photo 1</div>
+                    <div class="photo-slot">Photo 2</div>
+                    <div class="photo-slot">Photo 3</div>
+                    <div class="photo-slot">Photo 4</div>
                 </div>
-                <div class="process-step">
-                    <div class="step-header"><span class="num">2</span><div><strong id="t-pro2-h">Design the Research</strong><span class="en-title">DESIGN</span></div></div>
-                    <div class="process-content"><p id="t-pro2-p">Selecting appropriate methods and activities to engage young audiences.</p></div>
-                </div>
-                <div class="process-step">
-                    <div class="step-header"><span class="num">3</span><div><strong id="t-pro3-h">Engage</strong><span class="en-title">ENGAGE</span></div></div>
-                    <div class="process-content"><p id="t-pro3-p">Executing research activities to provide a platform for children to express their views.</p></div>
-                </div>
-                <div class="process-step">
-                    <div class="step-header"><span class="num">4</span><div><strong id="t-pro4-h">Synthesize</strong><span class="en-title">SYNTHESIZE</span></div></div>
-                    <div class="process-content"><p id="t-pro4-p">Analyzing observations, identifying meaningful patterns, and connecting them to the core problem.</p></div>
-                </div>
-                <div class="process-step" style="grid-column: 1 / -1;">
-                    <div class="step-header"><span class="num">5</span><div><strong id="t-pro5-h">Translate into Action</strong><span class="en-title">ACTION</span></div></div>
-                    <div class="process-content"><p id="t-pro5-p">Delivering insights and recommendations to guide design decisions. (Outputs: Research Summary, Insights Report, etc.)</p></div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="Link 1 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 2 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 3 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 4 URL"></div>
                 </div>
             </div>
-        </div>
-        <div class="image-content"><img src="slide6.jpg" alt="Process"></div>
-    </section>
 
-    <!-- بخش 6: درباره من و تماس -->
-    <section id="contact" class="fade-in">
-        <h2 id="t-con-title" style="text-align: center;">About Me & Contact</h2>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p id="t-con-p1">I am Reyhaneh Sanei; an industrial designer and design thinking instructor with over 15 years of experience working with children and teens. Today, I apply this experience in design research to help businesses better understand their young audiences.</p>
-            
-            <div class="contact-info-box">
-                <p id="t-con-spec"><strong>Specialty:</strong> Children & Teens</p>
-                <p><strong id="t-con-name-label">Name:</strong> <span class="val" id="t-con-name-val">Reyhaneh Sanei</span></p>
-                <p><strong id="t-con-email-label">Email:</strong> <span class="val">poonadesignmagazine@gmail.com</span></p>
-                <p><strong id="t-con-web-label">Website:</strong> <span class="val" id="t-con-web-val">Poona Design</span></p>
+            <div class="experience-section">
+                <div class="experience-title">Design Thinking Instructor — After-School Innovation Program</div>
+                <div class="experience-org">Hakim International Educational Complex (Boys), Tehran, Iran</div>
+                <ul class="experience-list">
+                    <li>Facilitated design research and user-needs exploration, guiding projects from problem discovery to actionable product decisions.</li>
+                    <li>Developed evaluation criteria to assess solution effectiveness and feasibility, supporting structured comparison of proposed solutions.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">Photo 1</div>
+                    <div class="photo-slot">Photo 2</div>
+                    <div class="photo-slot">Photo 3</div>
+                    <div class="photo-slot">Photo 4</div>
+                </div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="Link 1 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 2 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 3 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 4 URL"></div>
+                </div>
             </div>
-            <p id="t-con-quote" style="margin-top: 40px; color: var(--yellow); font-style: italic;">"Let's discover the future together. Your next product deserves more than assumptions."</p>
-        </div>
-        <div class="copyright">©Reyhaneh Sanei/2026</div>
-    </section>
 
-    <!-- اسکریپت تغییر زبان و انیمیشن -->
-    <script>
-        const translations = {
-            en: {
-                navContact: "Start Collaboration", langBtn: "فارسی",
-                heroTitle: "Design Research for Children & Teens",
-                heroP1: "You design for children; but how well do you know the world they imagine?",
-                heroHighlight: "Transforming children's perspectives, creativity, and imagination into opportunities for designing better products and experiences.",
-                srvTitle: "Research Services", srvP1: "How can I help your team? (Hover over each item for details)",
-                srv1h: "1. Young Audience Exploration", srv1p: "Better understanding of how children and teens think, feel, behave, and interact with products and experiences.",
-                srv2h: "2. Participatory Research Workshops", srv2p: "Designing and executing age-appropriate activities for active participation through storytelling, drawing, and creative challenges.",
-                srv3h: "3. Needs & Opportunity Discovery", srv3p: "Exploring overlooked needs, motivations, emerging interests, and potential opportunities for new products and services.",
-                srv4h: "4. Future-Oriented Research", srv4p: "Using speculative scenarios and sci-fi inspired activities to discover children's visions of future lifestyles and products.",
-                srv5h: "5. Design Insights & Recommendations", srv5p: "Translating research observations into actionable insights, design directions, and recommendations for product development.",
-                srvFooter: "The goal is not just collecting answers; but discovering new questions and opportunities for design.",
-                appTitle: "My Approach",
-                appP1: "Beyond asking questions; creating opportunities for discovery. Children and teens do not always express their needs the way adults expect.",
-                appP2: "A questionnaire might tell us what they prefer today; but what do we know about things they haven't experienced yet?",
-                appHighlight: "My approach combines design thinking and creative participatory activities, allowing children to express their views through storytelling, drawing, creative challenges, and prototyping.",
-                domTitle: "Collaboration Domains", domP1: "For teams designing for the next generation:",
-                dom1h: "Toys & Games", dom1p: "Understanding play patterns, interests, and discovering new possibilities for play experiences.",
-                dom2h: "Publishing & Children's Media", dom2p: "Exploring reading experiences, storytelling, characters, and the interests of young audiences.",
-                dom3h: "EdTech & Digital Products", dom3p: "Understanding learning styles, interaction, creation, and participation in digital experiences.",
-                dom4h: "Product & Experience Design", dom4p: "Discovering design opportunities for products, services, spaces, and experiences tailored for children.",
-                dom5h: "Brands & Innovation Teams", dom5p: "Understanding emerging expectations and future opportunities among younger generations.",
-                proTitle: "Collaboration Process", proP1: "From problem recognition to discovering opportunities. (Hover over each step for details)",
-                pro1h: "Discover", pro1p: "Understanding the product, audience, business challenges, and research goals.",
-                pro2h: "Design the Research", pro2p: "Selecting appropriate methods and activities to engage young audiences.",
-                pro3h: "Engage", pro3p: "Executing research activities to provide a platform for children to express their views.",
-                pro4h: "Synthesize", pro4p: "Analyzing observations, identifying meaningful patterns, and connecting them to the core problem.",
-                pro5h: "Translate into Action", pro5p: "Delivering insights and recommendations to guide design decisions.",
-                conTitle: "About Me & Contact",
-                conP1: "I am Reyhaneh Sanei; an industrial designer and design thinking instructor with over 15 years of experience working with children and teens. Today, I apply this experience in design research to help businesses better understand their young audiences.",
-                conSpec: "<strong>Specialty:</strong> Children & Teens",
-                conNameLabel: "Name:", conNameVal: "Reyhaneh Sanei",
-                conEmailLabel: "Email:", conWebLabel: "Website:", conWebVal: "Poona Design",
-                conQuote: "\"Let's discover the future together. Your next product deserves more than assumptions.\""
-            },
-            fa: {
-                navContact: "ریحانه صانعی", langBtn: "English",
-                heroTitle: "پژوهش طراحی برای کودکان و نوجوانان",
-                heroP1: "شما برای کودکان طراحی می‌کنید؛ اما چقدر دنیایی را می‌شناسید که آن‌ها در ذهنشان تصور می‌کنند؟",
-                heroHighlight: "تبدیل دیدگاه‌ها، خلاقیت و تخیل کودکان و نوجوانان به فرصت‌هایی برای طراحی محصولات و تجربه‌های بهتر.",
-                srvTitle: "خدمات پژوهشی", srvP1: "چگونه می‌توانم به تیم شما کمک کنم؟ (برای دیدن جزئیات، موس را روی هر مورد نگه دارید)",
-                srv1h: "۱. شناخت مخاطبان جوان", srv1p: "شناخت بهتر شیوه فکر کردن، احساسات، رفتارها، علایق و تعامل کودکان و نوجوانان با محصولات و تجربه‌ها.",
-                srv2h: "۲. کارگاه‌های پژوهش مشارکتی", srv2p: "طراحی و اجرای فعالیت‌های متناسب با سن مخاطبان برای مشارکت فعال آن‌ها از طریق داستان‌گویی، طراحی، تصویرسازی و چالش‌های خلاقانه.",
-                srv3h: "۳. کشف نیازها و فرصت‌ها", srv3p: "بررسی نیازهای کمتر دیده‌شده، انگیزه‌ها، علایق نوظهور و فرصت‌های احتمالی برای توسعه محصولات و خدمات جدید.",
-                srv4h: "۴. پژوهش آینده‌نگر", srv4p: "استفاده از سناریوهای فرضی و فعالیت‌های الهام گرفته از داستان‌های علمی‌تخیلی برای کشف تصور کودکان از آینده.",
-                srv5h: "۵. استخراج بینش و ارائه پیشنهادهای طراحی", srv5p: "تبدیل مشاهدات و الگوهای به‌دست‌آمده از پژوهش به بینش‌های قابل استفاده، مسیرهای طراحی و پیشنهادهایی برای توسعه محصول.",
-                srvFooter: "هدف فقط جمع‌آوری پاسخ‌ها نیست؛ بلکه کشف پرسش‌های تازه و فرصت‌های جدید برای طراحی است.",
-                appTitle: "رویکرد من",
-                appP1: "فراتر از پرسیدن سؤال؛ ایجاد فرصت‌هایی برای کشف. کودکان و نوجوانان همیشه نیازها و خواسته‌های خود را به همان شکلی بیان نمی‌کنند که بزرگسالان انتظار دارند.",
-                appP2: "یک پرسش‌نامه ممکن است به ما بگوید امروز چه چیزی را ترجیح می‌دهند؛ اما درباره چیزهایی که هنوز تجربه نکرده‌اند چه می‌دانیم؟",
-                appHighlight: "رویکرد من با ترکیب تفکر طراحی و فعالیت‌های مشارکتی خلاقانه، به کودکان فرصت می‌دهد دیدگاه‌هایشان را از طریق داستان‌گویی، طراحی، چالش‌های خلاقانه، سناریوهای فرضی و نمونه‌سازی بیان کنند.",
-                domTitle: "حوزه‌های همکاری", domP1: "برای تیم‌هایی که برای نسل آینده طراحی می‌کنند:",
-                dom1h: "اسباب‌بازی و بازی", dom1p: "شناخت الگوهای بازی، علایق، انگیزه‌ها و کشف امکان‌های جدید برای تجربه بازی.",
-                dom2h: "نشر و رسانه کودک", dom2p: "بررسی تجربه مطالعه، داستان‌گویی، شخصیت‌ها و علایق مخاطبان جوان.",
-                dom3h: "آموزش و محصولات دیجیتال", dom3p: "شناخت شیوه یادگیری، تعامل، خلق و مشارکت کودکان و نوجوانان در تجربه‌های دیجیتال.",
-                dom4h: "طراحی محصول و تجربه", dom4p: "کشف فرصت‌های طراحی محصولات، خدمات، فضاها و تجربه‌های متناسب با کودکان و نوجوانان.",
-                dom5h: "برندها و تیم‌های نوآوری", dom5p: "شناخت انتظارات در حال شکل‌گیری و فرصت‌های آینده در میان نسل‌های جوان.",
-                proTitle: "فرآیند همکاری", proP1: "از شناخت مسئله تا کشف فرصت. (برای دیدن توضیحات، موس را روی هر مرحله نگه دارید)",
-                pro1h: "کشف و شناخت", pro1p: "شناخت محصول، مخاطبان، چالش کسب و کار و اهداف پژوهش.",
-                pro2h: "طراحی پژوهش", pro2p: "انتخاب روش‌ها، فعالیت‌ها و شیوه‌های مناسب برای مشارکت دادن مخاطبان جوان.",
-                pro3h: "مشارکت و اکتشاف", pro3p: "اجرای فعالیت‌های پژوهشی و ایجاد فرصت برای بیان دیدگاه‌ها و تجربه‌های کودکان و نوجوانان.",
-                pro4h: "تحلیل و استخراج الگوها", pro4p: "تحلیل مشاهدات، شناسایی الگوهای معنادار و ارتباط دادن آن‌ها با مسئله اصلی.",
-                pro5h: "تبدیل بینش به اقدام", pro5p: "ارائه بینش‌ها و پیشنهادهایی که بتوانند تصمیم‌های طراحی را هدایت کنند.",
-                conTitle: "درباره من و راه‌های ارتباطی",
-                conP1: "من ریحانه صانعی هستم؛ طراح صنعتی و مدرس تفکر طراحی با بیش از ۱۵ سال تجربه کار با کودکان و نوجوانان. امروز این تجربه را در حوزه پژوهش طراحی به کار می‌گیرم تا به کسب‌وکارها کمک کنم مخاطبان جوان خود را بهتر بشناسند.",
-                conSpec: "<strong>حوزه تخصصی:</strong> کودکان و نوجوانان",
-                conNameLabel: "نام:", conNameVal: "ریحانه صانعی",
-                conEmailLabel: "ایمیل:", conWebLabel: "وب‌سایت:", conWebVal: "پونا دیزاین",
-                conQuote: "\"بیایید آینده را با هم کشف کنیم. محصول بعدی شما شایسته چیزی فراتر از فرضیات است.\""
-            }
-        };
+            <div class="experience-section">
+                <div class="experience-title">AI-Driven Speculative Design Workshop — Designer &amp; Facilitator</div>
+                <div class="experience-org">FabLab Iran – FabKids, Tehran, Iran</div>
+                <ul class="experience-list">
+                    <li>Developed and tested a speculative design methodology integrating narrative-driven research with ideation.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">Photo 1</div>
+                    <div class="photo-slot">Photo 2</div>
+                    <div class="photo-slot">Photo 3</div>
+                    <div class="photo-slot">Photo 4</div>
+                </div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="Link 1 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 2 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 3 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 4 URL"></div>
+                </div>
+            </div>
 
-        let currentLang = 'en';
+            <div class="experience-section">
+                <div class="experience-title">Senior Project Mentor</div>
+                <div class="experience-org">FSAMPAD — National Organization for Development of Exceptional Talents, Tehran, Iran</div>
+                <ul class="experience-list">
+                    <li>Led 30+ student innovation projects from needs assessment and problem definition through ideation, prototyping, testing, and final presentation.</li>
+                    <li>Prioritized project ideas and development goals based on user needs, available budget, technical feasibility, and resource constraints.</li>
+                    <li>Guided teams in developing project proposals, evaluating alternative solutions, and iterating prototypes based on feedback and feasibility.</li>
+                    <li>Mentored projects selected for the Kharazmi Youth Festival and student innovation exhibitions, supporting teams through development and presentation.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">Photo 1</div>
+                    <div class="photo-slot">Photo 2</div>
+                    <div class="photo-slot">Photo 3</div>
+                    <div class="photo-slot">Photo 4</div>
+                </div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="Link 1 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 2 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 3 URL"></div>
+                    <div class="link-box"><input type="url" placeholder="Link 4 URL"></div>
+                </div>
+            </div>
+        </section>
+    </div>
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'fa' : 'en';
-            applyLanguage(currentLang);
-        }
+    <!-- Services -->
+    <div class="sub-pane" id="pane-en-services">
+        <section>
+            <div class="text-content">
+                <h2>Research Services</h2>
+                <p>How can I help your team? (Click or hover over each item for details)</p>
+                <div class="grid-container">
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>1. Young Audience Exploration</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Better understanding of how children and teens think, feel, behave, and interact with products and experiences.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>2. Participatory Research Workshops</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Designing and executing age-appropriate activities for active participation through storytelling, drawing, and creative challenges.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>3. Needs &amp; Opportunity Discovery</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Exploring overlooked needs, motivations, emerging interests, and potential opportunities for new products and services.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>4. Future-Oriented Research</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Using speculative scenarios and sci-fi inspired activities to discover children's visions of future lifestyles and products.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>5. Design Insights &amp; Recommendations</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Translating research observations into actionable insights, design directions, and recommendations for product development.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-content"><img src="slide2.jpg" alt="Services"></div>
+        </section>
+    </div>
 
-        function applyLanguage(lang) {
-            const t = translations[lang];
-            
+    <!-- Approach -->
+    <div class="sub-pane" id="pane-en-approach">
+        <section>
+            <div class="text-content">
+                <h2>My Approach</h2>
+                <p>Beyond asking questions; creating opportunities for discovery. Children and teens do not always express their needs the way adults expect.</p>
+                <p>A questionnaire might tell us what they prefer today; but what do we know about things they haven't experienced yet?</p>
+                <div class="highlight" style="background: rgba(74, 122, 130, 0.2); border-color: var(--teal);">
+                    My approach combines design thinking and creative participatory activities, allowing children to express their views through storytelling, drawing, creative challenges, and prototyping.
+                </div>
+            </div>
+            <div class="image-content"><img src="slide4.jpg" alt="Approach"></div>
+        </section>
+    </div>
+
+    <!-- Domains -->
+    <div class="sub-pane" id="pane-en-domains">
+        <section>
+            <div class="text-content">
+                <h2>Collaboration Domains</h2>
+                <p>For teams designing for the next generation:</p>
+                <div class="grid-container">
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>Toys &amp; Games</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Understanding play patterns, interests, and discovering new possibilities for play experiences.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>Publishing &amp; Children's Media</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Exploring reading experiences, storytelling, characters, and the interests of young audiences.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>EdTech &amp; Digital Products</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Understanding learning styles, interaction, creation, and participation in digital experiences.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>Product &amp; Experience Design</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Discovering design opportunities for products, services, spaces, and experiences tailored for children.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>Brands &amp; Innovation Teams</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>Understanding emerging expectations and future opportunities among younger generations.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-content"><img src="slide5.jpg" alt="Domains"></div>
+        </section>
+    </div>
+
+    <!-- Process -->
+    <div class="sub-pane" id="pane-en-process">
+        <section>
+            <div class="text-content">
+                <h2>Collaboration Process</h2>
+                <p>From problem recognition to discovering opportunities. (Click or hover over each step for details)</p>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="step-header"><span class="num">1</span><div><strong>Discover</strong><span class="en-title">DISCOVER</span></div></div>
+                        <div class="process-content"><p>Understanding the product, audience, business challenges, and research goals.</p></div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header"><span class="num">2</span><div><strong>Design the Research</strong><span class="en-title">DESIGN</span></div></div>
+                        <div class="process-content"><p>Selecting appropriate methods and activities to engage young audiences.</p></div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header"><span class="num">3</span><div><strong>Engage</strong><span class="en-title">ENGAGE</span></div></div>
+                        <div class="process-content"><p>Executing research activities to provide a platform for children to express their views.</p></div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header"><span class="num">4</span><div><strong>Synthesize</strong><span class="en-title">SYNTHESIZE</span></div></div>
+                        <div class="process-content"><p>Analyzing observations, identifying meaningful patterns, and connecting them to the core problem.</p></div>
+                    </div>
+                    <div class="process-step" style="grid-column: 1 / -1;">
+                        <div class="step-header"><span class="num">5</span><div><strong>Translate into Action</strong><span class="en-title">ACTION</span></div></div>
+                        <div class="process-content"><p>Delivering insights and recommendations to guide design decisions. (Outputs: Research Summary, Insights Report, etc.)</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-content"><img src="slide6.jpg" alt="Process"></div>
+        </section>
+    </div>
+
+    <!-- Contact -->
+    <div class="sub-pane" id="pane-en-contact">
+        <section style="display:block; min-height:auto;">
+            <h2 style="text-align:center;">Contact</h2>
+            <div style="max-width:800px; margin:0 auto; text-align:center;">
+                <p>I am Reyhaneh Sanei; an industrial designer and design thinking instructor with over 15 years of experience working with children and teens. Today, I apply this experience in design research to help businesses better understand their young audiences.</p>
+                <div class="contact-info-box">
+                    <p><strong>Specialty:</strong> Children &amp; Teens</p>
+                    <p><strong>Phone:</strong> <a href="tel:+989123237540">+989123237540</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:poonadesignmagazine@gmail.com">poonadesignmagazine@gmail.com</a></p>
+                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/reyhaneh-sanei-7b575176" target="_blank" rel="noopener noreferrer">reyhaneh-sanei</a></p>
+                    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/Poona_Pashootan" target="_blank" rel="noopener noreferrer">@Poona_Pashootan</a></p>
+                    <p><strong>Telegram:</strong> <a href="https://t.me/Poona_Pashootan" target="_blank" rel="noopener noreferrer">@Poona_Pashootan</a></p>
+                </div>
+                <p style="margin-top:35px; color: var(--yellow); font-style: italic;">"Let's discover the future together. Your next product deserves more than assumptions."</p>
+            </div>
+            <div class="copyright">©Reyhaneh Sanei/2026</div>
+        </section>
+    </div>
+</div>
+
+<!-- ==================== پنل فارسی ==================== -->
+<div class="lang-pane" id="pane-fa" dir="rtl">
+
+    <!-- درباره من -->
+    <div class="sub-pane active" id="pane-fa-about">
+        <section style="display:block; min-height:auto;">
+            <div class="about-header">
+                <div class="about-name">ریحانه صانعی</div>
+                <div class="about-title">کارشناس ارشد طراحی صنعتی</div>
+                <div class="about-subtitle">پژوهشگر طراحی و مدرس تفکر طراحی</div>
+            </div>
+
+            <div class="about-bio">
+                <p>مدرس تفکر طراحی و طراح صنعتی با نگاه محصول‌محور و بیش از ۱۵ سال تجربه در منتورینگ، یادگیری پروژه‌محور و حل مسئله کاربرمحور. در حال حاضر مدرس طراحی IB MYP (درس تفکر طراحی) در یک مدرسه بین‌المللی انگلیسی‌زبان هستم و دانش‌آموزان را در فرآیندهای ساختاریافته و پروژه‌محور از تعریف مسئله و شناسایی نیازهای کاربر تا ایده‌پردازی، نمونه‌سازی، ارزیابی و تکرار هدایت می‌کنم. همچنین Task Sheet، Design Brief، Rubric ارزیابی و چارچوب‌های بازخورد ساختاریافته را برای پشتیبانی از حل مسئله مستقل و بهبود مستمر توسعه می‌دهم.</p>
+                <p>در حال گذار به حوزه مدیریت محصول از طریق آموزش عملی در Product Management، Agile/Scrum و توسعه محصول مبتنی بر هوش مصنوعی هستم. دوره Product Management Bootcamp را در آکادمی DigiNext گذرانده‌ام که شامل کار عملی در کشف محصول، اولویت‌بندی و تدوین roadmap بوده است.</p>
+            </div>
+
+            <div class="experience-section">
+                <div class="experience-title">مدرس طراحی IB (MYP) — مسیر محصول و نوآوری</div>
+                <div class="experience-org">مجتمع آموزشی بین‌المللی شهید مهدوی، تهران، ایران</div>
+                <div class="experience-role">مدرس طراحی IB MYP | مجتمع آموزشی بین‌المللی شهید مهدوی | ۲۰۲۵–اکنون</div>
+                <ul class="experience-list">
+                    <li>تسهیل یادگیری پروژه‌محور طراحی و هدایت دانش‌آموزان از تعریف مسئله و نیازهای کاربر تا ایده‌پردازی، نمونه‌سازی و ارزیابی.</li>
+                    <li>توسعه Task Sheet، Design Brief، Rubric ارزیابی و چارچوب بازخورد برای ساختاردهی انتظارات، ارزیابی و بهبود تکراری.</li>
+                    <li>ارائه بازخورد معیارمحور و تطبیق راهنمایی بر اساس ارزیابی تکوینی برای پشتیبانی از حل مسئله مستقل و بهبود مستمر.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">عکس ۱</div>
+                    <div class="photo-slot">عکس ۲</div>
+                    <div class="photo-slot">عکس ۳</div>
+                    <div class="photo-slot">عکس ۴</div>
+                </div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="لینک ۱"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۲"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۳"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۴"></div>
+                </div>
+            </div>
+
+            <div class="experience-section">
+                <div class="experience-title">سرپرست برنامه کارگاه — ساخت دیجیتال معماری و یادگیری هوش مصنوعی</div>
+                <div class="experience-org">آی‌فب‌لب ایران – فب‌کیدز، تهران، ایران</div>
+                <ul class="experience-list">
+                    <li>طراحی و پیاده‌سازی یک محصول آموزشی معماری ماژولار از مفهوم و نمونه‌سازی تا اجرا در چندین محیط مدرسه.</li>
+                    <li>ادغام جریان‌های ایده‌پردازی مبتنی بر هوش مصنوعی در برنامه درسی دانش‌آموزان و معرفی ابزارهای AI برای پشتیبانی از حل مسئله.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">عکس ۱</div>
+                    <div class="photo-slot">عکس ۲</div>
+                    <div class="photo-slot">عکس ۳</div>
+                    <div class="photo-slot">عکس ۴</div>
+                </div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="لینک ۱"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۲"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۳"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۴"></div>
+                </div>
+            </div>
+
+            <div class="experience-section">
+                <div class="experience-title">مدرس تفکر طراحی — برنامه نوآوری فوق‌برنامه</div>
+                <div class="experience-org">مجتمع آموزشی بین‌المللی حکیم (پسران)، تهران، ایران</div>
+                <ul class="experience-list">
+                    <li>تسهیل پژوهش طراحی و کشف نیازهای کاربر و هدایت پروژه‌ها از کشف مسئله تا تصمیم‌های عملی محصول.</li>
+                    <li>توسعه معیارهای ارزیابی برای سنجش اثربخشی و امکان‌سنجی راه‌حل‌ها و پشتیبانی از مقایسه ساختاریافته پیشنهادها.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">عکس ۱</div>
+                    <div class="photo-slot">عکس ۲</div>
+                    <div class="photo-slot">عکس ۳</div>
+                    <div class="photo-slot">عکس ۴</div>
+                </div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="لینک ۱"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۲"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۳"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۴"></div>
+                </div>
+            </div>
+
+            <div class="experience-section">
+                <div class="experience-title">کارگاه طراحی سوداگرانه مبتنی بر هوش مصنوعی — طراح و تسهیل‌گر</div>
+                <div class="experience-org">فب‌لب ایران – فب‌کیدز، تهران، ایران</div>
+                <ul class="experience-list">
+                    <li>توسعه و آزمون یک روش‌شناسی طراحی سوداگرانه با ترکیب پژوهش روایت‌محور و ایده‌پردازی.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">عکس ۱</div>
+                    <div class="photo-slot">عکس ۲</div>
+                    <div class="photo-slot">عکس ۳</div>
+                    <div class="photo-slot">عکس ۴</div>
+                </div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="لینک ۱"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۲"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۳"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۴"></div>
+                </div>
+            </div>
+
+            <div class="experience-section">
+                <div class="experience-title">منتور ارشد پروژه</div>
+                <div class="experience-org">سمپاد — سازمان ملی پرورش استعدادهای درخشان، تهران، ایران</div>
+                <ul class="experience-list">
+                    <li>رهبری بیش از ۳۰ پروژه نوآوری دانش‌آموزی از نیازسنجی و تعریف مسئله تا ایده‌پردازی، نمونه‌سازی، آزمون و ارائه نهایی.</li>
+                    <li>اولویت‌بندی ایده‌های پروژه و اهداف توسعه بر اساس نیازهای کاربر، بودجه در دسترس، امکان‌سنجی فنی و محدودیت منابع.</li>
+                    <li>هدایت تیم‌ها در تدوین پروپوزال، ارزیابی راه‌حل‌های جایگزین و تکرار نمونه‌ها بر اساس بازخورد و امکان‌سنجی.</li>
+                    <li>منتورینگ پروژه‌های منتخب جشنواره جوان خوارزمی و نمایشگاه‌های نوآوری دانش‌آموزی و پشتیبانی از تیم‌ها در توسعه و ارائه.</li>
+                </ul>
+                <div class="photo-grid">
+                    <div class="photo-slot">عکس ۱</div>
+                    <div class="photo-slot">عکس ۲</div>
+                    <div class="photo-slot">عکس ۳</div>
+                    <div class="photo-slot">عکس ۴</div>
+                </div>
+                <div class="link-grid">
+                    <div class="link-box"><input type="url" placeholder="لینک ۱"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۲"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۳"></div>
+                    <div class="link-box"><input type="url" placeholder="لینک ۴"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- خدمات -->
+    <div class="sub-pane" id="pane-fa-services">
+        <section>
+            <div class="text-content">
+                <h2>خدمات پژوهشی</h2>
+                <p>چگونه می‌توانم به تیم شما کمک کنم؟ (برای دیدن جزئیات کلیک کنید)</p>
+                <div class="grid-container">
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>۱. شناخت مخاطبان جوان</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>شناخت بهتر شیوه فکر کردن، احساسات، رفتارها، علایق و تعامل کودکان و نوجوانان با محصولات و تجربه‌ها.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>۲. کارگاه‌های پژوهش مشارکتی</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>طراحی و اجرای فعالیت‌های متناسب با سن مخاطبان برای مشارکت فعال آن‌ها از طریق داستان‌گویی، طراحی، تصویرسازی و چالش‌های خلاقانه.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>۳. کشف نیازها و فرصت‌ها</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>بررسی نیازهای کمتر دیده‌شده، انگیزه‌ها، علایق نوظهور و فرصت‌های احتمالی برای توسعه محصولات و خدمات جدید.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>۴. پژوهش آینده‌نگر</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>استفاده از سناریوهای فرضی و فعالیت‌های الهام گرفته از داستان‌های علمی‌تخیلی برای کشف تصور کودکان از آینده.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>۵. استخراج بینش و ارائه پیشنهادهای طراحی</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>تبدیل مشاهدات و الگوهای به‌دست‌آمده از پژوهش به بینش‌های قابل استفاده، مسیرهای طراحی و پیشنهادهایی برای توسعه محصول.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-content"><img src="slide2.jpg" alt="خدمات"></div>
+        </section>
+    </div>
+
+    <!-- رویکرد -->
+    <div class="sub-pane" id="pane-fa-approach">
+        <section>
+            <div class="text-content">
+                <h2>رویکرد من</h2>
+                <p>فراتر از پرسیدن سؤال؛ ایجاد فرصت‌هایی برای کشف. کودکان و نوجوانان همیشه نیازها و خواسته‌های خود را به همان شکلی بیان نمی‌کنند که بزرگسالان انتظار دارند.</p>
+                <p>یک پرسش‌نامه ممکن است به ما بگوید امروز چه چیزی را ترجیح می‌دهند؛ اما درباره چیزهایی که هنوز تجربه نکرده‌اند چه می‌دانیم؟</p>
+                <div class="highlight" style="background: rgba(74, 122, 130, 0.2); border-color: var(--teal);">
+                    رویکرد من با ترکیب تفکر طراحی و فعالیت‌های مشارکتی خلاقانه، به کودکان فرصت می‌دهد دیدگاه‌هایشان را از طریق داستان‌گویی، طراحی، چالش‌های خلاقانه، سناریوهای فرضی و نمونه‌سازی بیان کنند.
+                </div>
+            </div>
+            <div class="image-content"><img src="slide4.jpg" alt="رویکرد"></div>
+        </section>
+    </div>
+
+    <!-- حوزه‌ها -->
+    <div class="sub-pane" id="pane-fa-domains">
+        <section>
+            <div class="text-content">
+                <h2>حوزه‌های همکاری</h2>
+                <p>برای تیم‌هایی که برای نسل آینده طراحی می‌کنند:</p>
+                <div class="grid-container">
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>اسباب‌بازی و بازی</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>شناخت الگوهای بازی، علایق، انگیزه‌ها و کشف امکان‌های جدید برای تجربه بازی.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>نشر و رسانه کودک</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>بررسی تجربه مطالعه، داستان‌گویی، شخصیت‌ها و علایق مخاطبان جوان.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>آموزش و محصولات دیجیتال</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>شناخت شیوه یادگیری، تعامل، خلق و مشارکت کودکان و نوجوانان در تجربه‌های دیجیتال.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>طراحی محصول و تجربه</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>کشف فرصت‌های طراحی محصولات، خدمات، فضاها و تجربه‌های متناسب با کودکان و نوجوانان.</p></div>
+                    </div>
+                    <div class="clickable-card">
+                        <div class="card-header"><h3>برندها و تیم‌های نوآوری</h3><span class="icon">+</span></div>
+                        <div class="card-content"><p>شناخت انتظارات در حال شکل‌گیری و فرصت‌های آینده در میان نسل‌های جوان.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-content"><img src="slide5.jpg" alt="حوزه‌ها"></div>
+        </section>
+    </div>
+
+    <!-- فرآیند -->
+    <div class="sub-pane" id="pane-fa-process">
+        <section>
+            <div class="text-content">
+                <h2>فرآیند همکاری</h2>
+                <p>از شناخت مسئله تا کشف فرصت. (برای دیدن توضیحات کلیک کنید)</p>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="step-header"><span class="num">۱</span><div><strong>کشف و شناخت</strong><span class="en-title">DISCOVER</span></div></div>
+                        <div class="process-content"><p>شناخت محصول، مخاطبان، چالش کسب و کار و اهداف پژوهش.</p></div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header"><span class="num">۲</span><div><strong>طراحی پژوهش</strong><span class="en-title">DESIGN</span></div></div>
+                        <div class="process-content"><p>انتخاب روش‌ها، فعالیت‌ها و شیوه‌های مناسب برای مشارکت دادن مخاطبان جوان.</p></div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header"><span class="num">۳</span><div><strong>مشارکت و اکتشاف</strong><span class="en-title">ENGAGE</span></div></div>
+                        <div class="process-content"><p>اجرای فعالیت‌های پژوهشی و ایجاد فرصت برای بیان دیدگاه‌ها و تجربه‌های کودکان و نوجوانان.</p></div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header"><span class="num">۴</span><div><strong>تحلیل و استخراج الگوها</strong><span class="en-title">SYNTHESIZE</span></div></div>
+                        <div class="process-content"><p>تحلیل مشاهدات، شناسایی الگوهای معنادار و ارتباط دادن آن‌ها با مسئله اصلی.</p></div>
+                    </div>
+                    <div class="process-step" style="grid-column: 1 / -1;">
+                        <div class="step-header"><span class="num">۵</span><div><strong>تبدیل بینش به اقدام</strong><span class="en-title">ACTION</span></div></div>
+                        <div class="process-content"><p>ارائه بینش‌ها و پیشنهادهایی که بتوانند تصمیم‌های طراحی را هدایت کنند.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-content"><img src="slide6.jpg" alt="فرآیند"></div>
+        </section>
+    </div>
+
+    <!-- تماس -->
+    <div class="sub-pane" id="pane-fa-contact">
+        <section style="display:block; min-height:auto;">
+            <h2 style="text-align:center;">راه‌های ارتباطی</h2>
+            <div style="max-width:800px; margin:0 auto; text-align:center;">
+                <p>من ریحانه صانعی هستم؛ طراح صنعتی و مدرس تفکر طراحی با بیش از ۱۵ سال تجربه کار با کودکان و نوجوانان. امروز این تجربه را در حوزه پژوهش طراحی به کار می‌گیرم تا به کسب‌وکارها کمک کنم مخاطبان جوان خود را بهتر بشناسند.</p>
+                <div class="contact-info-box">
+                    <p><strong>حوزه تخصصی:</strong> کودکان و نوجوانان</p>
+                    <p><strong>تلفن:</strong> <a href="tel:+989123237540">+989123237540</a></p>
+                    <p><strong>ایمیل:</strong> <a href="mailto:poonadesignmagazine@gmail.com">poonadesignmagazine@gmail.com</a></p>
+                    <p><strong>لینکدین:</strong> <a href="https://www.linkedin.com/in/reyhaneh-sanei-7b575176" target="_blank" rel="noopener noreferrer">reyhaneh-sanei</a></p>
+                    <p><strong>اینستاگرام:</strong> <a href="https://www.instagram.com/Poona_Pashootan" target="_blank" rel="noopener noreferrer">@Poona_Pashootan</a></p>
+                    <p><strong>تلگرام:</strong> <a href="https://t.me/Poona_Pashootan" target="_blank" rel="noopener noreferrer">@Poona_Pashootan</a></p>
+                </div>
+                <p style="margin-top:35px; color: var(--yellow); font-style: italic;">«بیایید آینده را با هم کشف کنیم. محصول بعدی شما شایسته چیزی فراتر از فرضیات است.»</p>
+            </div>
+            <div class="copyright">©Reyhaneh Sanei/2026</div>
+        </section>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+
+    // ============ تب‌های زبان ============
+    var langButtons = document.querySelectorAll('.lang-tab');
+    var langPanes = document.querySelectorAll('.lang-pane');
+    var subTabsEn = document.getElementById('subTabs-en');
+    var subTabsFa = document.getElementById('subTabs-fa');
+
+    langButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var lang = btn.dataset.lang;
+
+            // دکمه‌های زبان
+            langButtons.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+
+            // پنل‌های زبان
+            langPanes.forEach(function(p) { p.classList.remove('active'); });
+            document.getElementById('pane-' + lang).classList.add('active');
+
+            // جهت و زبان صفحه
             document.documentElement.lang = lang;
-            document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+            document.documentElement.dir = (lang === 'fa') ? 'rtl' : 'ltr';
 
-            document.getElementById('langToggle').innerText = t.langBtn;
-            document.getElementById('nav-btn-contact').innerText = t.navContact;
-            document.getElementById('t-hero-title').innerText = t.heroTitle;
-            document.getElementById('t-hero-p1').innerText = t.heroP1;
-            document.getElementById('t-hero-highlight').innerText = t.heroHighlight;
-            document.getElementById('t-srv-title').innerText = t.srvTitle;
-            document.getElementById('t-srv-p1').innerText = t.srvP1;
-            document.getElementById('t-srv1-h').innerText = t.srv1h; document.getElementById('t-srv1-p').innerText = t.srv1p;
-            document.getElementById('t-srv2-h').innerText = t.srv2h; document.getElementById('t-srv2-p').innerText = t.srv2p;
-            document.getElementById('t-srv3-h').innerText = t.srv3h; document.getElementById('t-srv3-p').innerText = t.srv3p;
-            document.getElementById('t-srv4-h').innerText = t.srv4h; document.getElementById('t-srv4-p').innerText = t.srv4p;
-            document.getElementById('t-srv5-h').innerText = t.srv5h; document.getElementById('t-srv5-p').innerText = t.srv5p;
-            document.getElementById('t-srv-footer').innerText = t.srvFooter;
-            document.getElementById('t-app-title').innerText = t.appTitle;
-            document.getElementById('t-app-p1').innerText = t.appP1;
-            document.getElementById('t-app-p2').innerText = t.appP2;
-            document.getElementById('t-app-highlight').innerText = t.appHighlight;
-            document.getElementById('t-dom-title').innerText = t.domTitle;
-            document.getElementById('t-dom-p1').innerText = t.domP1;
-            document.getElementById('t-dom1-h').innerText = t.dom1h; document.getElementById('t-dom1-p').innerText = t.dom1p;
-            document.getElementById('t-dom2-h').innerText = t.dom2h; document.getElementById('t-dom2-p').innerText = t.dom2p;
-            document.getElementById('t-dom3-h').innerText = t.dom3h; document.getElementById('t-dom3-p').innerText = t.dom3p;
-            document.getElementById('t-dom4-h').innerText = t.dom4h; document.getElementById('t-dom4-p').innerText = t.dom4p;
-            document.getElementById('t-dom5-h').innerText = t.dom5h; document.getElementById('t-dom5-p').innerText = t.dom5p;
-            document.getElementById('t-pro-title').innerText = t.proTitle;
-            document.getElementById('t-pro-p1').innerText = t.proP1;
-            document.getElementById('t-pro1-h').innerText = t.pro1h; document.getElementById('t-pro1-p').innerText = t.pro1p;
-            document.getElementById('t-pro2-h').innerText = t.pro2h; document.getElementById('t-pro2-p').innerText = t.pro2p;
-            document.getElementById('t-pro3-h').innerText = t.pro3h; document.getElementById('t-pro3-p').innerText = t.pro3p;
-            document.getElementById('t-pro4-h').innerText = t.pro4h; document.getElementById('t-pro4-p').innerText = t.pro4p;
-            document.getElementById('t-pro5-h').innerText = t.pro5h; document.getElementById('t-pro5-p').innerText = t.pro5p;
-            document.getElementById('t-con-title').innerText = t.conTitle;
-            document.getElementById('t-con-p1').innerText = t.conP1;
-            document.getElementById('t-con-spec').innerHTML = t.conSpec; 
-            document.getElementById('t-con-name-label').innerText = t.conNameLabel;
-            document.getElementById('t-con-name-val').innerText = t.conNameVal;
-            document.getElementById('t-con-email-label').innerText = t.conEmailLabel;
-            document.getElementById('t-con-web-label').innerText = t.conWebLabel;
-            document.getElementById('t-con-web-val').innerText = t.conWebVal;
-            document.getElementById('t-con-quote').innerText = t.conQuote;
-        }
+            // نمایش زیرتب‌های مربوطه
+            if (lang === 'en') {
+                subTabsEn.style.display = 'flex';
+                subTabsFa.style.display = 'none';
+            } else {
+                subTabsEn.style.display = 'none';
+                subTabsFa.style.display = 'flex';
+            }
 
-        applyLanguage(currentLang);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+    // ============ زیرتب‌ها ============
+    var subButtons = document.querySelectorAll('.sub-tab');
+    var subPanes = document.querySelectorAll('.sub-pane');
+
+    subButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var target = btn.dataset.sub;
+
+            // غیرفعال کردن همه دکمه‌های هم‌گروه
+            var parent = btn.parentElement;
+            parent.querySelectorAll('.sub-tab').forEach(function(b) {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            // مخفی کردن همه پنل‌های هم‌گروه
+            subPanes.forEach(function(p) { p.classList.remove('active'); });
+            var targetPane = document.getElementById('pane-' + target);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // ============ کارت‌های تعاملی ============
+    document.querySelectorAll('.clickable-card, .process-step').forEach(function(el) {
+        el.addEventListener('click', function() {
+            el.classList.toggle('is-open');
+        });
+    });
+
+    // ============ انیمیشن اسکرول ============
+    if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-in').forEach((el) => {
+        document.querySelectorAll('.fade-in').forEach(function(el) {
             observer.observe(el);
         });
-    </script>
+    } else {
+        document.querySelectorAll('.fade-in').forEach(function(el) {
+            el.classList.add('visible');
+        });
+    }
+})();
+</script>
 </body>
 </html>
