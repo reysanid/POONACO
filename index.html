@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poona | Design Research for Children & Teens</title>
     
+    <!-- لود فونت Comic Neue از گوگل (جایگزین رایگان Comic Sans) -->
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <style>
-        /* تعریف فونت فارسی B Morvarid */
+        /* تعریف فونت فارسی B Morvarid (مسیر فایل باید دقیقاً درست باشد) */
         @font-face {
-            font-family: 'B Morvarid';
-            src: local('B Morvarid'), local('BMorvarid'), url('BMorvarid.woff2') format('woff2'), url('BMorvarid.ttf') format('truetype');
+            font-family: 'BMorvarid';
+            src: url('BMorvarid.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
+            font-display: swap; /* نمایش سریع متن در صورت تاخیر در لود فونت */
         }
 
         :root {
@@ -29,20 +33,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        /* ---------------------------------------------------
-           اصلاح بزرگ: اعمال فونت روی تگ html که dir دارد
-           --------------------------------------------------- */
-        
-        /* حالت انگلیسی (LTR) */
-        html[dir="ltr"] * {
-            font-family: 'Comic Sans MS', 'comic', 'Comic Sans', 'Chalkboard SE', cursive, sans-serif !important;
-        }
-
-        /* حالت فارسی (RTL) */
-        html[dir="rtl"] * {
-            font-family: 'B Morvarid', 'Vazirmatn', sans-serif !important;
+            /* 
+               این مهم‌ترین خط است: 
+               اول Comic Neue را برای انگلیسی می‌خواند. 
+               چون فارسی ندارد، خودکار می‌رود سراغ BMorvarid.
+            */
+            font-family: 'Comic Neue', 'BMorvarid', sans-serif !important;
         }
 
         body {
@@ -567,10 +563,8 @@
             document.getElementById('t-con-quote').innerText = t.conQuote;
         }
 
-        // اجرای اولیه
         applyLanguage(currentLang);
 
-        // انیمیشن اسکرول
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
