@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poona | Design Education Gallery</title>
+    
+    <!-- فونت انگلیسی: Comic Neue -->
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* تعریف فونت فارسی: B Morvarid */
+        @font-face {
+            font-family: 'BMorvarid';
+            src: url('BMorvarid.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap; 
+        }
+
+        :root {
+            --pink: #E91E63;
+            --yellow: #FDD763;
+            --bg-main: rgb(86, 6, 93);
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            /* فونت‌ها */
+            font-family: 'Comic Neue', 'BMorvarid', sans-serif !important;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 5% 50px 5%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            color: var(--yellow);
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            color: #ddd;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* شبکه ۴ کادری عکس‌ها */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-color: var(--pink);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            display: block;
+        }
+
+        /* دکمه بازگشت */
+        .back-btn {
+            background: var(--pink);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(233, 30, 99, 0.3);
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(233, 30, 99, 0.5);
+            background: #d61457;
+        }
+
+        /* ریسپانسیو برای موبایل */
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 2.2rem; }
+            .gallery-item img { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Design Education</h1>
+        <p>آموزش طراحی / Years · Design Thinking · Project +15 Mentoring</p>
+    </div>
+
+    <!-- ۴ کادر عکس -->
+    <div class="gallery-grid">
+        <div class="gallery-item">
+            <img src="edu1.jpg" alt="Education Project 1">
+        </div>
+        <div class="gallery-item">
+            <img src="edu2.jpg" alt="Education Project 2">
+        </div>
+        <div class="gallery-item">
+            <img src="edu3.jpg" alt="Education Project 3">
+        </div>
+        <div class="gallery-item">
+            <img src="edu4.jpg" alt="Education Project 4">
+        </div>
+    </div>
+
+    <!-- دکمه بازگشت به صفحه اصلی -->
+    <a href="index.html" class="back-btn">⬅ Back to Home / بازگشت به صفحه اصلی</a>
+
+</body>
+</html>
